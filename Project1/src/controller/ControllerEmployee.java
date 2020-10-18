@@ -4,14 +4,8 @@ package controller;
 import connection.SCOTTConnection;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 import model.Employee;
-import oracle.jdbc.OracleCallableStatement;
-import oracle.jdbc.OracleTypes;
 
 public class ControllerEmployee {
     
@@ -22,6 +16,10 @@ public class ControllerEmployee {
         if(connection == null){
             connection = new SCOTTConnection().getConnection();
         }
+    }
+    
+    public void closeConnection() throws SQLException{
+        connection.close();
     }
     
     public boolean addEmployee(Employee employee){
@@ -40,6 +38,9 @@ public class ControllerEmployee {
             cstmt.execute();
             return true;
         } catch (Exception e) {
+            System.out.println("NO SE PUDO AÑADIR EMPLEADO");
+            System.out.println("DETALLES DEL ERROR ");
+            System.out.println("--------------------------");
             System.out.println(e);
             return false;
         }
@@ -63,6 +64,9 @@ public class ControllerEmployee {
             cstmt.execute();
             return true;
         } catch (Exception e) {
+            System.out.println("NO SE PUDO ACTUALIZAR EMPLEADO");
+            System.out.println("DETALLES DEL ERROR ");
+            System.out.println("--------------------------");
             System.out.println(e);
             return false;
         }
@@ -76,7 +80,10 @@ public class ControllerEmployee {
             System.out.println("Empleado con ID " + empNo + " ha sido eliminado");
             return true;
         } catch (Exception e) {
-            System.out.println("Exception: " + e);
+              System.out.println("NO SE PUDO ELIMINAR EMPLEADO");
+            System.out.println("DETALLES DEL ERROR ");
+            System.out.println("--------------------------");
+            System.out.println(e);
             return false;
         }
     }
