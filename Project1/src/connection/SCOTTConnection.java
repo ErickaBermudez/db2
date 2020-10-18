@@ -38,6 +38,7 @@ public class SCOTTConnection {
     public void closeConnection(){
         try {
             connection.close();
+            System.out.println("Conexión a SCOTT cerrada");
         } catch (SQLException ex) {
             Logger.getLogger(SCOTTConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
